@@ -1,0 +1,178 @@
+<!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+          <img class="footerlogo" src="<?php echo base_url(); ?>/media/img/footerlogo.png">
+        </div>
+
+        <div class="col-lg-5 col-md-3 col-sm-6 col-xs-12 footer_nav">
+          <ul class="nav navbar-nav">
+          <li><a href="#">Join Now</a></li>
+          <li><a href="#">Login</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">Tools &amp; Tips</a></li>
+              
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-3 col-sm-6 col-xs-12 footer_social">
+          <ul class="nav navbar-nav">
+          <li><a href="#"><img src="<?php echo base_url(); ?>media/img/twitter.jpg"></a></li>
+          <li><a href="#"><img src="<?php echo base_url(); ?>media/img/social.jpg"></a></li>
+          <li><a href="#"><img src="<?php echo base_url(); ?>media/img/instagram.jpg"></a></li>
+          <li><a href="#"><img src="<?php echo base_url(); ?>media/img/pinrest.jpg"></a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+        
+  </footer>
+
+ 
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<?php echo base_url(); ?>/media/js/vendor/jquery.min.js"><\/script>')</script>
+    <script src="<?php echo base_url(); ?>/media/js/bootstrap.min.js"></script>
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+   
+ <script src="<?php echo base_url(); ?>media/js/jquery.min.js"></script>
+  <script src="<?php echo base_url(); ?>media/js/jquery.bxslider.js"></script>
+  <script type="text/javascript">
+    var jq = $.noConflict();
+     jq(document).ready(function(){
+        
+    jq('.bxslider').bxSlider({
+      pagerCustom: '#bx-pager'
+    });
+      });
+</script>
+
+   <script src="<?php echo base_url(); ?>assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="<?php echo base_url(); ?>assets/global/plugins/jquery-validation/js/additional-methods.min.js"></script>
+
+<!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL STYLES -->
+<script src="<?php echo base_url(); ?>assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/layout2/scripts/layout.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/layout2/scripts/demo.js" type="text/javascript"></script>
+<script src="<?php echo base_url(); ?>assets/admin/pages/scripts/form-validation.js"></script>
+<!-- END PAGE LEVEL STYLES -->
+
+
+ 
+  <script>
+$(document).on('click','.status_checks',function(){
+
+      var status = ($(this).hasClass("a")) ? '0' : '2';
+ 
+      var msg = (status=='0')? 'Deactivate' : 'Activate';
+        var current_element = $(this);
+    url = "<?php echo base_url();?>homeowner/jobs/update";
+     
+       $.ajax({
+
+          type:"POST",
+
+          url: url,
+
+          data: {id:$(current_element).attr('data'),status:status},
+
+          success: function(data)
+           
+          {   
+      
+            location.reload();
+
+          }
+
+        });         
+    });
+$( document ).ready(function(){
+         $("#conversation").submit(function(){
+
+          if($('.btn').hasClass('active')){
+            //alert("a");  
+          }else{
+            $(".error").html("Please select atleast one contractor");
+            return false;
+          }
+          var url = "<?php echo base_url();?>homeowner/jobs/add_communication";
+         var job_id=$("#job_id").val();
+          var owner_id=$("#owner_id").val();
+          var message=$("#message").val();
+           var contractor_id=$("#contractor_id").val();
+         // event.preventDefault();
+          $.ajax({
+
+          type:"POST",  
+          url: url,
+          data: {job_id:job_id,owner_id:owner_id,message:message,contractor_id:contractor_id},
+
+          success: function(data)
+          {
+            fetch_data();
+          }
+        });
+
+        });
+      });
+function fetch_data(){
+  var job_id=$("#job_id").val();
+     var owner_id=$("#owner_id").val();
+   var url = "<?php echo base_url();?>homeowner/jobs/fetch";
+   $.ajax({
+           type:"POST",
+          url: url,
+          data: {job_id:job_id,owner_id:owner_id},
+           success: function(data)
+          {
+            $("#fillgrid").html(data);
+            $("#message").val('');
+          }
+      });
+}
+
+</script>
+  <script src="http://tutsme-webdesign.info/tutorials/tablesorter/jquery.tablesorter.min.js"></script>
+    <script src="http://tutsme-webdesign.info/tutorials/tablesorter/jquery.tablesorter.widgets.min.js"></script>
+<script>
+jQuery(document).ready(function(){
+jQuery(function(){
+jQuery("#myTable").tablesorter(
+{
+  theme : 'blue',
+  
+  sortList : [[1,0],[2,0],[3,0]],
+
+    // header layout template; {icon} needed for some themes
+    headerTemplate : '{content}{icon}',
+
+  // initialize column styling of the table
+    widgets : ["columns"],
+  widgetOptions : {
+      // change the default column class names
+      // primary is the first column sorted, secondary is the second, etc
+      columns : [ "primary", "secondary", "tertiary" ]
+  }
+});
+
+Metronic.init(); // init metronic core components
+Layout.init(); // init current layout
+Demo.init(); // init demo features
+   FormValidation.init();
+});
+});
+
+</script>
+  </body>
+</html>
